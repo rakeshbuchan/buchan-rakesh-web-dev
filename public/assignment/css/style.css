@@ -14,13 +14,12 @@ p.navbar-text.pull-left {
     margin-left: 15px
 }
 
-.glyphicon.glyphicon-play{
-    padding-left: 5px
+.glyphicon.glyphicon-eye-open{
+    padding-left: 10px
 }
 
-.icon-black{
-    padding-left: 10px;
-    color: black
+.icon-blue{
+    color: blue;
 }
 
 .jga-widget-tool {
