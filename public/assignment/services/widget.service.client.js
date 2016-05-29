@@ -25,16 +25,6 @@
         };
         return api;
 
-        function findWidgetsByPageId(pageId) {
-            var resultSet = [];
-            for(var i in widgets) {
-                if(widgets[i].pageId === pageId) {
-                    resultSet.push(widgets[i]);
-                }
-            }
-            return resultSet;
-        }
-
         function createWidget(pageId, widget) {
             var newWidget = {
                 _id: (new Date()).getTime()+"",

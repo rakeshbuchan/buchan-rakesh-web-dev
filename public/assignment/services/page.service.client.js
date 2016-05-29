@@ -17,17 +17,7 @@
             updatePage: updatePage,
             deletePage: deletePage,
         };
-        return api;
-
-        function deletePage(pageId) {
-            for(var i in pages) {
-                if(pages[i]._id === pageId) {
-                    pages.splice(i, 1);
-                    return true;
-                }
-            }
-            return false;
-        }
+        return api;        
 
         function createPage(websiteId, page) {
             var newPage = {
@@ -63,6 +53,16 @@
                 if(pages[i]._id === pageId) {
                     pages[i].name = page.name;
                     pages[i].websiteId = page.websiteId;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function deletePage(pageId) {
+            for(var i in pages) {
+                if(pages[i]._id === pageId) {
+                    pages.splice(i, 1);
                     return true;
                 }
             }

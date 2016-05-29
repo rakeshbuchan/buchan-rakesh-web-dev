@@ -9,12 +9,13 @@
         vm.websiteId = $routeParams.websiteId;
         vm.pageId = $routeParams.pageId;
 
+        vm.updatePage =  updatePage;
+        vm.deletePage = deletePage;
+
         function init() {
             vm.page = PageService.findPageById(vm.pageId);
         }
-        init();
-
-        vm.updatePage =  updatePage;
+        init();        
             
         function updatePage(name, title){
             var page = {"name" : name, "websiteId" : vm.websiteId};
@@ -22,9 +23,7 @@
             if(true){
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             }
-        }
-
-        vm.deletePage = deletePage;
+        }        
 
         function deletePage(pageId) {
             var result = PageService.deletePage(pageId);

@@ -19,18 +19,7 @@
             updateUser : updateUser,
             deleteUser: deleteUser
         }
-        return api;
-
-        function updateUser(userId, user) {
-            for(var i in users) {
-                if(users[i]._id === userId) {
-                    users[i].firstName = user.firstName;
-                    users[i].lastName = user.lastName;
-                    return true;
-                }
-            }
-            return false;
-        }
+        return api;        
 
         function createUser(user){
             var checkUser = findUserByUsername(user.username)
@@ -75,6 +64,17 @@
                }
            }
             return null;
+        }
+
+        function updateUser(userId, user) {
+            for(var i in users) {
+                if(users[i]._id === userId) {
+                    users[i].firstName = user.firstName;
+                    users[i].lastName = user.lastName;
+                    return true;
+                }
+            }
+            return false;
         }
 
         function deleteUser(userId) {

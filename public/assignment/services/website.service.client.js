@@ -20,17 +20,7 @@
             updateWebsite: updateWebsite,
             deleteWebsite: deleteWebsite,
         };
-        return api;
-
-        function deleteWebsite(websiteId) {
-            for(var i in websites) {
-                if(websites[i]._id === websiteId) {
-                    websites.splice(i, 1);
-                    return true;
-                }
-            }
-            return false;
-        }
+        return api;        
 
         function createWebsite(userId, website) {
             var newWebsite = {
@@ -66,6 +56,16 @@
                 if(websites[i]._id === websiteId) {
                     websites[i].name = website.name;
                     websites[i].developerId = website.developerId;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function deleteWebsite(websiteId) {
+            for(var i in websites) {
+                if(websites[i]._id === websiteId) {
+                    websites.splice(i, 1);
                     return true;
                 }
             }

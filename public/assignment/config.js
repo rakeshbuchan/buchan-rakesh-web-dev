@@ -70,6 +70,5 @@
             .otherwise({
                 redirectTo: "/login"
             });
-
     }
 })();
