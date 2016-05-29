@@ -1,9 +1,9 @@
 (function(){
     angular
         .module("WebAppMaker")
-        .controller("WebsiteEditController", WebsiteEditController);
+        .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteEditController($location, WebsiteService, $routeParams) {
+    function EditWebsiteController($location, WebsiteService, $routeParams) {
         var vm = this;
         vm.userId = $routeParams.userId;
         vm.websiteId = $routeParams.websiteId;
@@ -13,7 +13,9 @@
         }
         init();
 
-        vm.updateWebsite = function(name, websiteDescription){
+        vm.updateWebsite = updateWebsite;
+        
+        function updateWebsite(name, websiteDescription){
             var website = {"name" : name, "developerId" : vm.userId};
             var status = WebsiteService.updateWebsite(vm.websiteId, website);
             if(true){

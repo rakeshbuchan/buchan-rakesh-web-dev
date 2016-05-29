@@ -1,9 +1,9 @@
 (function(){
     angular
         .module("WebAppMaker")
-        .controller("PageEditController", PageEditController);
+        .controller("EditPageController", EditPageController);
 
-    function PageEditController($location, PageService, $routeParams) {
+    function EditPageController($location, PageService, $routeParams) {
         var vm = this;
         vm.userId = $routeParams.userId;
         vm.websiteId = $routeParams.websiteId;
@@ -14,7 +14,9 @@
         }
         init();
 
-        vm.updatePage = function(name, title){
+        vm.updatePage =  updatePage;
+            
+        function updatePage(name, title){
             var page = {"name" : name, "websiteId" : vm.websiteId};
             var status = PageService.updatePage(vm.pageId, page);
             if(true){

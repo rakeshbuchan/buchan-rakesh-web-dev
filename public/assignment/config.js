@@ -29,12 +29,12 @@
             })
             .when("/user/:userId/website/new",{
                 templateUrl : "views/website/website-new.view.client.html",
-                controller : "WebsiteNewController",
+                controller : "NewWebsiteController",
                 controllerAs : "model"
             })
             .when("/user/:userId/website/:websiteId",{
                 templateUrl : "views/website/website-edit.view.client.html",
-                controller : "WebsiteEditController",
+                controller : "EditWebsiteController",
                 controllerAs : "model"
             })
             .when("/user/:userId/website/:websiteId/page",{
@@ -44,13 +44,28 @@
             })
             .when("/user/:userId/website/:websiteId/page/new",{
                 templateUrl : "views/page/page-new.view.client.html",
-                controller : "PageNewController",
+                controller : "NewPageController",
                 controllerAs : "model"
             })
             .when("/user/:userId/website/:websiteId/page/:pageId",{
                 templateUrl : "views/page/page-edit.view.client.html",
-                controller : "PageEditController",
+                controller : "EditPageController",
                 controllerAs : "model"
+            })
+            .when("/user/:userId/website/:websiteId/page/:pageId/widget", {
+                templateUrl: "views/widget/widget-list.view.client.html",
+                controller: "WidgetListController",
+                controllerAs: "model"
+            })
+            .when("/user/:userId/website/:websiteId/page/:pageId/widget/new", {
+                templateUrl: "views/widget/widget-chooser.view.client.html",
+                controller: "NewWidgetController",
+                controllerAs: "model"
+            })
+            .when("/user/:userId/website/:websiteId/page/:pageId/widget/:widgetId", {
+                templateUrl: "views/widget/widget-edit.view.client.html",
+                controller: "EditWidgetController",
+                controllerAs: "model"
             })
             .otherwise({
                 redirectTo: "/login"

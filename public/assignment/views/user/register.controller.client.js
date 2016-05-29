@@ -6,7 +6,9 @@
     function RegisterController($location, UserService){
        var vm = this;
         
-        vm.register = function(username, password, passwordVerify){
+        vm.register = register;
+        
+        function register(username, password, passwordVerify){
             if(password != null && password === passwordVerify) {
                 var user = {"username": username, "password": password};
                 user = UserService.createUser(user);

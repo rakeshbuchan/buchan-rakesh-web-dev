@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="navbar-inner">
             <p class="navbar-text pull-left">
-                <a href="/assignment/page/page-list.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/"class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
                 </a>
@@ -11,7 +11,7 @@
                 Widgets
             </a>
             <p class="navbar-text pull-right">
-                <a href="widget-chooser.view.client.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="navbar-link">
                   <span class="glyphicon glyphicon-plus">
                   </span>
                 </a>
@@ -21,74 +21,35 @@
 </nav>
 
 <div class="container">
-    <div class="jga-widget">
+    <div ng-repeat="widget in model.widgets" class="jga-widget">
         <div class="jga-widget-tool">
-            <a href="widget-heading.view.client.html">
+            <a href="#">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
-        <h1>GIZMODO</h1>
-    </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="widget-heading.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
+        <div ng-switch="widget.widgetType">
+            <div ng-switch-when="HEADER" ng-switch="widget.size">
+                <h1 ng-switch-when="1">{{widget.text}}</h1>
+                <h2 ng-switch-when="2">{{widget.text}}</h2>
+                <h3 ng-switch-when="3">{{widget.text}}</h3>
+                <h4 ng-switch-when="4">{{widget.text}}</h4>
+                <h5 ng-switch-when="5">{{widget.text}}</h5>
+                <h6 ng-switch-when="6">{{widget.text}}</h6>
+            </div>
+            <div ng-switch-when="HTML">
+                <div ng-bind-html="model.getSafeHtml(widget)"></div>
+            </div>
+            <div ng-switch-when="IMAGE">
+                <img ng-src="{{widget.url}}" width="{{widget.width}}"/>
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <iframe width="{{widget.width}}" ng-src="{{model.getSafeUrl(widget)}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div ng-switch-default>
+                Unable to render widget
+            </div>
         </div>
-        <h4>Image Captured of Night Sky During SpaceX Falcon 9 Landing</h4>
-    </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="widget-image.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <img width="100%" src="https://i.kinja-img.com/gawker-media/image/upload/s--NgJVaGsp--/c_fill,fl_progressive,g_center,h_180,q_80,w_320/vq1lqzo4bq56lrtuvsoo.jpg"/>
-    </div>
-
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="widget-heading.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p class="first-text">Time for your daily dose of space porn! Photographer Zack Grether posted photos <a href="http://www.zgrethphoto.com/Learn/Exp/Tut/SpaceX" rel="noopener" target="_blank">on his blog</a> of what he said was the landing of the SpaceX Falcon 9 rocket.</p>
-    </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="widget-heading.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h4>Is Computer Programming hard to learn ?</h4>
-    </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="widget-youtube.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <iframe width="100%" src="https://www.youtube.com/embed/pvAsqPbz9Ro" frameborder="0" allowfullscreen></iframe>        </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="widget-heading.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p id="eow-description" class="">The most incredible video about Programming !<br><a href="https://code.org/" class="yt-uix-sessionlink  " data-url="https://code.org/" data-sessionlink="ei=JltBV-OSMuqG8gShlbvIBw" rel="nofollow" target="_blank">https://code.org/</a><br>Launched in 2013, Code.org® is a non-profit dedicated to expanding participation in computer science by making it available in more schools, and increasing participation by women and underrepresented students of color. Our vision is that every student in every school should have the opportunity to learn computer science. We believe computer science and computer programming should be part of the core curriculum in education, alongside other science, technology, engineering, and mathematics (STEM) courses, such as biology, physics, chemistry and algebra.<br>Code.org increases diversity in computer science by reaching students of all backgrounds where they are — at their skill-level, in their schools, and in ways that inspire them to keep learning.<br><br>(Directed by Leslie Chilcott. Executive producers Hadi and Ali Partovi).</p>
     </div>
 </div>
 
@@ -106,7 +67,7 @@
                 </a>
             </p>
             <p class="navbar-text pull-right">
-                <a href="/assignment/user/profile.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}" class="navbar-link">
                     <span class="glyphicon glyphicon-user icon-blue">
                     </span>
                 </a>
