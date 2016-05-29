@@ -17,11 +17,44 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
-            .when("/profile/:id",{
+            .when("/user/:userId",{
                 templateUrl : "views/user/profile.view.client.html",
                 controller: "ProfileController",
                 controllerAs: "model"
             })
-            
+            .when("/user/:userId/website",{
+                templateUrl : "views/website/website-list.view.client.html",
+                controller: "WebsiteListController",
+                controllerAs: "model"
+            })
+            .when("/user/:userId/website/new",{
+                templateUrl : "views/website/website-new.view.client.html",
+                controller : "WebsiteNewController",
+                controllerAs : "model"
+            })
+            .when("/user/:userId/website/:websiteId",{
+                templateUrl : "views/website/website-edit.view.client.html",
+                controller : "WebsiteEditController",
+                controllerAs : "model"
+            })
+            .when("/user/:userId/website/websiteId/page",{
+                templateUrl : "views/page/page-list.view.client.html",
+                controller: "PageListController",
+                controllerAs: "model"
+            })
+            .when("/user/:userId/website/websiteId/page/new",{
+                templateUrl : "views/page/page-new.view.client.html",
+                controller : "PageNewController",
+                controllerAs : "model"
+            })
+            .when("/user/:userId/website/websiteId/page/pageId",{
+                templateUrl : "views/page/page-edit.view.client.html",
+                controller : "PageEditController",
+                controllerAs : "model"
+            })
+            .otherwise({
+                redirectTo: "/login"
+            });
+
     }
 })();

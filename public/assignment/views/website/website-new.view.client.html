@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="navbar-inner">
             <p class="navbar-text pull-left">
-                <a href="website-list.view.client.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
                 </a>
@@ -11,7 +11,7 @@
                 New Website
             </a>
             <p class="navbar-text pull-right">
-                <a href="website-list.view.client.html" class="navbar-link">
+                <a ng-click = "model.createWebsite(name, websiteDescription)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok">
                   </span>
                 </a>
@@ -20,18 +20,22 @@
     </div>
 </nav>
 
+<div ng-if="model.error" class="alert alert-danger">
+    {{model.error}}
+</div>
+
 <div class="container">
     <form>
         <div class="form-group">
             <label for="website-name">Name</label>
-            <input type="text"
+            <input ng-model = "name" type="text"
                    class="form-control"
                    id="website-name"
                    placeholder="Name">
         </div>
         <div class="form-group">
             <label for="website-description">Description</label>
-            <textarea rows="4"
+            <textarea ng-model = "websiteDescription" rows="4"
                       id="website-description"
                       class="form-control"
                       placeholder="Description"></textarea>
@@ -43,7 +47,7 @@
     <div class="container-fluid">
         <div class="navbar-inner">
             <p class="navbar-text pull-right">
-                <a href="/assignment/user/profile.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}" class="navbar-link">
                 <span class="glyphicon glyphicon-user icon-blue">
                 </span>
                 </a>

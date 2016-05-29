@@ -7,12 +7,16 @@
        var vm = this;
         
         vm.register = function(username, password, passwordVerify){
-            var user = { "username" : username, "password"  : password };
-            user = UserService.createUser(user);
-            if(user){
-                $location.url("/profile/"+ user._id);
+            if(password != null && password === passwordVerify) {
+                var user = {"username": username, "password": password};
+                user = UserService.createUser(user);
+                if (user) {
+                    $location.url("/user/" + user._id);
+                } else {
+                    vm.error = "Unable to Register. Try a different Username";
+                }
             }else{
-                vm.error = "Unable to Register. Try a different Username";
+                vm.error = "Please provide valid password";
             }
         }
     }

@@ -5,7 +5,7 @@
                 Websites
             </a>
             <p class="navbar-text pull-right">
-                <a href="website-new.view.client.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/new" class="navbar-link">
                   <span class="glyphicon glyphicon-plus">
                   </span>
                 </a>
@@ -16,47 +16,14 @@
 
 <div class="container">
     <ul class="list-group">
-        <li class="list-group-item">
-            <a href="/assignment/page/page-list.html">
-                Gizmodo
+        <li ng-repeat = "website in model.websites" class="list-group-item">
+            <a href="#/user/{{website.developerId}}/website/{{website._id}}/page">
+                {{website.name}}
             </a>
             <a href="#" class="pull-right">
                 <span class="glyphicon glyphicon-play"></span>
             </a>
-            <a href="/assignment/website/website-edit.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="/assignment/page/page-list.html">
-                Youtube
-            </a>
-            <a href="#" class="pull-right">
-                <span class="glyphicon glyphicon-play"></span>
-            </a>
-            <a href="/assignment/website/website-edit.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="/assignment/page/page-list.html">
-                Facebook
-            </a>
-            <a href="#" class="pull-right">
-                <span class="glyphicon glyphicon-play"></span>
-            </a>
-            <a href="/assignment/website/website-edit.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="/assignment/page/page-list.html">
-                Twitter
-            </a>
-            <a href="#" class="pull-right">
-                <span class="glyphicon glyphicon-play"></span>
-            </a>
-            <a href="/assignment/website/website-edit.html" class="pull-right">
+            <a href="#/user/{{website.developerId}}/website/{{website._id}}" class="pull-right">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
         </li>
@@ -67,7 +34,7 @@
     <div class="container-fluid">
         <div class="navbar-inner">
             <p class="navbar-text pull-right">
-                <a href="/assignment/user/profile.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}" class="navbar-link">
                 <span class="glyphicon glyphicon-user icon-blue">
                 </span>
                 </a>
