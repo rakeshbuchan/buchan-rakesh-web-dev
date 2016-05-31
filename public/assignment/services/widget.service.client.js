@@ -59,10 +59,10 @@
         function updateWidget(widgetId, widget) {
             for(var i in widgets) {
                 if(widgets[i]._id === widgetId) {
-                    widgets[i].widgetType = widgetId.widgetType;
-                    widgets[i].pageId = widgetId.pageId;
-                    widgets[i].size = widgetId.size;
-                    widgets[i].text = widgetId.text;
+                    widgets[i].widgetType = widget.widgetType;
+                    widgets[i].pageId = widget.pageId;
+                    widgets[i].size = widget.size;
+                    widgets[i].text = widget.text;
                     return true;
                 }
             }
