@@ -11,10 +11,18 @@
         
         function createWebsite(name, websiteDescription){
             var website = {"name" : name, "developerId" : vm.userId};
-            var newWebsite = WebsiteService.createWebsite(vm.userId, website);
-            if(newWebsite){
-                $location.url("/user/" + vm.userId + "/website");
-            }
-        }
+             WebsiteService
+                 .createWebsite(vm.userId, website)
+                 .then(
+                function(response){
+                    var newWebsite = response.body;
+                    $location.url("/user/" + vm.userId + "/website");
+                },
+                     function(error){
+                         vm.error = error.data;
+                     }
+                 )
+            }         
+        
     }
 })();
