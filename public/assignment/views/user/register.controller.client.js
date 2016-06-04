@@ -9,16 +9,22 @@
         vm.register = register;
         
         function register(username, password, passwordVerify){
-            if(password != null && password === passwordVerify) {
+            if(username != null && password != null && password === passwordVerify) {
                 var user = {"username": username, "password": password};
-                user = UserService.createUser(user);
-                if (user) {
-                    $location.url("/user/" + user._id);
-                } else {
-                    vm.error = "Unable to Register. Try a different Username";
-                }
+                UserService
+                    .createUser(user)
+                    .then(
+                    function(response){
+                        var user = response.data;
+                        if (user) {
+                            $location.url("/user/" + user._id);
+                        } else {
+                            vm.error = "Unable to Register. Try a different Username";
+                        }
+                    }
+                    )
             }else{
-                vm.error = "Please provide valid password";
+                vm.error = "Please provide all three inputs and ensure that both passwords entered are same";
             }
         }
     }

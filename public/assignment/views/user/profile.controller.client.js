@@ -11,12 +11,27 @@
         vm.updateUser = updateUser;
 
         function init() {
-            vm.user = UserService.findUserById(userId);
+            UserService
+                .findUserById(userId)
+                .then(
+                    function(response){
+                    vm.user =response.data;
+                }
+                )
         }
         init();
 
-        function updateUser(newUser) {
-            UserService.updateUser(userId, newUser);
+        function updateUser() {
+            UserService
+                .updateUser(userId, vm.user)
+                .then(
+                    function(response){
+                    vm.success = "User successfully updated";
+                },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                )
         }
     }
 

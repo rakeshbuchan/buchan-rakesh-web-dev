@@ -9,11 +9,25 @@
         vm.login = login;
         
         function login(username, password){
-            var user = UserService.findUserByCredentials(username, password);
-            if(user){
-                $location.url("/user/"+ user._id);
+            if(username != null && password != null){
+                UserService
+                    .findUserByCredentials(username, password)
+                    .then(
+                        function(response) {
+                            var user = response.data;
+                            if (user._id) {
+                                $location.url("/user/" + user._id);
+                            }
+                            else{
+                                vm.error = "User not found"; 
+                            }
+                        },
+                        function(error) {
+                            vm.error = "User not found";
+                        }
+                    )
             }else{
-                vm.error = "User not found";
+                vm.error = "Please enter both the inputs";
             }
         }
     }
