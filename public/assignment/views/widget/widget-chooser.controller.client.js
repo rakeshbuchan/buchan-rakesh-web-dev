@@ -32,12 +32,16 @@
                 pageId: vm.pageId,
                 widgetType: "HEADER"
             };
-            if(WidgetService.createWidget(vm.pageId,newWidget)) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
-            }
-            else {
-                vm.error = "Unable to create widget";
-            }
+            WidgetService
+                .createWidget(vm.pageId,newWidget)
+                .then(
+                    function(response){
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+                    },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                 )
         }
 
         function createImage(){
@@ -46,12 +50,16 @@
                 pageId: vm.pageId,
                 widgetType: "IMAGE"
             };
-            if(WidgetService.createWidget(vm.pageId,newWidget)) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
-            }
-            else {
-                vm.error = "Unable to create widget";
-            }
+            WidgetService
+                .createWidget(vm.pageId,newWidget)
+                .then(
+                    function(response){
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+                    },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                )
         }
 
         function createYoutube(){
@@ -60,12 +68,16 @@
                 pageId: vm.pageId,
                 widgetType: "YOUTUBE"
             };
-            if(WidgetService.createWidget(vm.pageId,newWidget)) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
-            }
-            else {
-                vm.error = "Unable to create widget";
-            }
+            WidgetService
+                .createWidget(vm.pageId,newWidget)
+                .then(
+                    function(response){
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+                    },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                )
         }
     }
 })();

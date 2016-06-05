@@ -14,26 +14,40 @@
         vm.updateWidget = updateWidget;
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.widgetId)
+            WidgetService
+                .findWidgetById(vm.widgetId)
+                .then(
+                    function(response){
+                        vm.widget = response.data;
+                    }
+                )
         }
         init();
 
         function deleteWidget(){
-            if(WidgetService.deleteWidget(vm.widgetId)) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+            WidgetService
+                .deleteWidget(vm.widgetId)
+                .then(
+                    function(response){
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                )
             }
-            else {
-                vm.error = "Unable to delete widget"
-            }
-        }
 
         function updateWidget(newWidget){
-            if(WidgetService.updateWidget(vm.widgetId,newWidget)) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            }
-            else {
-                vm.error = "Unable to update widget"
-            }
+            WidgetService
+                .updateWidget(vm.widgetId,newWidget)
+                .then(
+                    function(response){
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");  
+                    },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                 )
         }
     }
 })();
