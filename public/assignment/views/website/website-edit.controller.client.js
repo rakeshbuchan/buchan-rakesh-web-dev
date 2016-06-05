@@ -23,17 +23,21 @@
         init();
         
         function updateWebsite(name, websiteDescription){
-            var website = {"name" : name, "developerId" : vm.userId};
-            WebsiteService
-                .updateWebsite(vm.websiteId, vm.website)
-                .then(
-                    function(response){
-                        $location.url("/user/" + vm.userId + "/website");
-                    },
-                    function(error){
-                        vm.error = error.data;
-                    }
-                )
+            if(name != "") {
+                var website = {"name": name, "developerId": vm.userId};
+                WebsiteService
+                    .updateWebsite(vm.websiteId, vm.website)
+                    .then(
+                        function (response) {
+                            $location.url("/user/" + vm.userId + "/website");
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                        }
+                    )
+            }else{
+                vm.error = "Provide Website Name";
+            }
         }
 
         function deleteWebsite(websiteId) {
@@ -46,8 +50,7 @@
                     function(error){
                         vm.error = error.data;
                     }
-                )
-            
+                )            
         }
     }
 })();

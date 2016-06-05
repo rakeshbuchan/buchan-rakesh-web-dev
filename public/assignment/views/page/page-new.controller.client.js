@@ -11,10 +11,20 @@
         vm.createPage = createPage;
             
         function createPage(name, title){
-            var page = {"name" : name, "websiteId" : vm.websiteId};
-            var newPage = PageService.createPage(vm.websiteId, page);
-            if(newPage){
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            if(name != null) {
+                var page = {"name": name, "websiteId": vm.websiteId};
+                PageService
+                    .createPage(vm.websiteId, page)
+                    .then(
+                        function(response){
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        },
+                        function(error){
+                            vm.error = error.data;
+                        }
+                    )
+            }else{
+                vm.error = "Enter Page name";
             }
         }
     }

@@ -10,19 +10,23 @@
         vm.createWebsite = createWebsite;
         
         function createWebsite(name, websiteDescription){
-            var website = {"name" : name, "developerId" : vm.userId};
-             WebsiteService
-                 .createWebsite(vm.userId, website)
-                 .then(
-                function(response){
-                    var newWebsite = response.body;
-                    $location.url("/user/" + vm.userId + "/website");
-                },
-                     function(error){
-                         vm.error = error.data;
-                     }
-                 )
-            }         
+            if(name != null) {
+                var website = {"name": name, "developerId": vm.userId};
+                WebsiteService
+                    .createWebsite(vm.userId, website)
+                    .then(
+                        function (response) {
+                            var newWebsite = response.body;
+                            $location.url("/user/" + vm.userId + "/website");
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                        }
+                    )
+            }else{
+                vm.error = "Provide Website Name";
+            }
+        }
         
     }
 })();

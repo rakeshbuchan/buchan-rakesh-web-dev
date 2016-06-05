@@ -13,23 +13,45 @@
         vm.deletePage = deletePage;
 
         function init() {
-            vm.page = PageService.findPageById(vm.pageId);
+            PageService
+                .findPageById(vm.pageId)
+                .then(
+                    function(response){
+                        vm.page = response.data;
+                    }
+                )
         }
         init();        
             
         function updatePage(name, title){
-            var page = {"name" : name, "websiteId" : vm.websiteId};
-            var status = PageService.updatePage(vm.pageId, page);
-            if(true){
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            if(name != "") {
+                var page = {"name": name, "websiteId": vm.websiteId};
+                PageService
+                    .updatePage(vm.pageId, page)
+                    .then(
+                        function(response){
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        },
+                        function(error){
+                            vm.error = error.data;
+                        }
+                    )
+            }else{
+                vm.error = "Provide Page Name";
             }
         }        
 
         function deletePage(pageId) {
-            var result = PageService.deletePage(pageId);
-            if(result) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-            }
+            PageService
+                .deletePage(pageId)
+                .then(
+                    function(response){
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                )
         }
     }
 })();
