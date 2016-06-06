@@ -96,7 +96,7 @@ module.exports = function(app) {
                 widgets[i].url = "/uploads/"+filename;
             }
         }
-        res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget");
+        res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
         
     }
 }
