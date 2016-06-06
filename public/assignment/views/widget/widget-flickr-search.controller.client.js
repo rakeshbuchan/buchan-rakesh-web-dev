@@ -37,7 +37,8 @@
                 pageId: vm.pageId,
                 widgetType: "IMAGE",
                 url: url,
-                websiteId: vm.websiteId
+                websiteId: vm.websiteId,
+                width: "100%"
             };
             WidgetService
                 .updateWidget(vm.widgetId,newWidget)
