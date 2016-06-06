@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("FlickrImageSearchController", FlickrImageSearchController);
 
-    function FlickrImageSearchController($location, $routeParams, FlickrService) {
+    function FlickrImageSearchController($location, $routeParams, FlickrService, WidgetService) {
         var vm = this;
         vm.pageId = $routeParams.pageId;
         vm.userId = $routeParams.userId;
@@ -11,6 +11,7 @@
         vm.widgetId = $routeParams.widgetId;
 
         vm.searchPhotos = searchPhotos;
+        vm.selectPhoto = selectPhoto;
 
         function searchPhotos(searchText) {
             FlickrService
@@ -26,6 +27,28 @@
                         vm.error = error.data;
                     }
                 );
+        }
+
+        function selectPhoto(photo) {
+            var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
+            url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
+            var newWidget = {
+                _id: vm.widgetId,
+                pageId: vm.pageId,
+                widgetType: "IMAGE",
+                url: url,
+                websiteId: vm.websiteId
+            };
+            WidgetService
+                .updateWidget(vm.widgetId,newWidget)
+                .then(
+                    function(response){
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                )
         }
     }
 })();
