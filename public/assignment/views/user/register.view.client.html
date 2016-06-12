@@ -5,20 +5,39 @@
     </div>
 
     <h1>Register</h1>
-    <input ng-model = "username"
-           type="text"
-           class="form-control"
-           placeholder="username"/>
-    <input ng-model = "password"
-           type="password"
-           class="form-control"
-           placeholder="password"/>
-    <input ng-model = "passwordVerify"
-           type="password"
-           class="form-control"
-           placeholder="verify password"/>
-    <a ng-click = "model.register(username, password, passwordVerify)"
-       class="btn btn-primary btn-block">Register</a>
-    <a class="btn btn-danger btn-block"
-       href="#/login">Cancel</a>
+    <form name="registerForm" novalidate>
+        <input ng-model = "username"
+                type="text"
+                class="form-control"
+                placeholder="username"
+                required
+                name="username"/>
+        <span ng-show="registerForm.$submitted && registerForm.username.$invalid">
+            Username is required
+        </span>
+        <input ng-model = "password"
+                type="password"
+                class="form-control"
+                placeholder="password"
+                required
+                name="password"/>
+        <span ng-show="registerForm.$submitted && registerForm.password.$invalid">
+            Password is required
+        </span>
+        <input ng-model = "passwordVerify"
+                type="password"
+                class="form-control"
+                placeholder="verify password"
+                required
+                name="password2"/>
+        <span ng-show="registerForm.$submitted && registerForm.password2.$invalid">
+            Verify Password is required
+        </span>
+        <button class="btn btn-primary btn-block"
+                ng-click="model.register(username, password, passwordVerify)">
+            Register
+        </button>
+        <a class="btn btn-danger btn-block"
+            href="#/login">Cancel</a>
+    </form>
 </div>
