@@ -10,6 +10,7 @@ module.exports = function(app, models) {
 
     function createUser(req, res) {
         var newUser = req.body;
+        newUser.websites = [];
         userModel
             .findUserByUsername(newUser.username)
             .then(
@@ -43,7 +44,7 @@ module.exports = function(app, models) {
             .findUserById(userId)
             .then(
                 function (user) {
-                    res.send(user);
+                    res.json(user);
                 },
                 function (error) {
                     res.statusCode(404).send(error);
@@ -80,7 +81,7 @@ module.exports = function(app, models) {
             .findUserByUsername(username)
             .then(
                 function (user) {
-                    res.send(user);
+                    res.json(user);
                 },
                 function (error) {
                     res.statusCode(404).send(error);

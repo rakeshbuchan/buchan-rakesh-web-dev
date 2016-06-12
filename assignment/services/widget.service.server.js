@@ -1,19 +1,9 @@
-module.exports = function(app) {
+module.exports = function(app, models) {
 
     var multer = require('multer'); // npm install multer --save
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
     
-    var widgets = [
-        { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO"},
-        { "_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-        { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-            "url": "http://lorempixel.com/400/200/"},
-        { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
-        { "_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-        { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-            "url": "https://youtu.be/AM2Ivdi9c4E" },
-        { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
-    ];
+    var widgetModel = models.widgetModel;
 
     app.post("/api/page/:pageId/widget", createWidget);
     app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
@@ -25,56 +15,73 @@ module.exports = function(app) {
     function createWidget(req, res) {
         var pageId = req.params.pageId;
         var newwidget = req.body;
-        newwidget.pageId = pageId;
-        widgets.push(newwidget);
-        res.json(newwidget);
+        widgetModel
+            .createWidget(pageId, newwidget)
+            .then(
+                function (widget) {
+                    res.json(widget);
+                },
+                function (error) {
+                    res.statusCode(400).send(error);
+                }
+            )
     }
 
     function findAllWidgetsForPage(req, res) {
         var pageId = req.params.pageId;
-        var resultSet = [];
-        for(var i in widgets) {
-            if(widgets[i].pageId === pageId) {
-                resultSet.push(widgets[i]);
-            }
-        }
-        res.send(resultSet);
+        widgetModel
+            .findAllWidgetsForPage(pageId)
+            .then(
+                function (widgets) {
+                    res.json(widgets);
+                },
+                function (error) {
+                    res.statusCode(404).send(error);
+                }
+            )
     }
 
     function findWidgetById(req, res) {
         var widgetId = req.params.widgetId;
-        for(var i in widgets) {
-            if(widgets[i]._id === widgetId) {
-                res.send(widgets[i]);
-                return;
-            }
-        }
-        res.send({});
+        widgetModel
+            .findWidgetById(widgetId)
+            .then(
+                function (widget) {
+                    res.json(widget);
+                },
+                function (error) {
+                    res.statusCode(404).send(error);
+                }
+            )
     }
 
     function updateWidget(req, res) {
         var widgetId = req.params.widgetId;
         var widget = req.body;
-        for(var i in widgets) {
-            if(widgets[i]._id === widgetId) {
-                widgets[i] = widget;
-                res.send(200);
-                return;
-            }
-        }
-        res.sendStatus(400).send("Widget with ID: "+ widgetId +" could not be updated");
+        widgetModel
+            .updateWidget(widgetId, widget)
+            .then(
+                function (stats) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.statusCode(404).send(error);
+                }
+            );
     }
 
     function deleteWidget(req, res) {
         var widgetId = req.params.widgetId;
-        for(var i in widgets) {
-            if(widgets[i]._id === widgetId) {
-                widgets.splice(i, 1);
-                res.send(200);
-                return;
-            }
-        }
-        res.sendStatus(400).send("Unable to delete Widget with ID: "+ widgetId);
+        widgetModel
+            .deleteWidget(widgetId)
+            .then(
+                function (stats) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.statusCode(404).send(error);
+                }
+            );
     }
 
     function uploadImage(req, res) {

@@ -12,7 +12,7 @@
             
         function createPage(name, title){
             if(name != null) {
-                var page = {"name": name, "websiteId": vm.websiteId};
+                var page = {"name": name, "websiteId": vm.websiteId, "title":  title};
                 PageService
                     .createPage(vm.websiteId, page)
                     .then(

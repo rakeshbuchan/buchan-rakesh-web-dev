@@ -25,7 +25,7 @@
             
         function updatePage(name, title){
             if(name != "") {
-                var page = {"name": name, "websiteId": vm.websiteId};
+                var page = {"name": name, "websiteId": vm.websiteId, "title": title};
                 PageService
                     .updatePage(vm.pageId, page)
                     .then(

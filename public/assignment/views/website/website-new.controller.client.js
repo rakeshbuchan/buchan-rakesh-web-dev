@@ -11,7 +11,7 @@
         
         function createWebsite(name, websiteDescription){
             if(name != null) {
-                var website = {"name": name, "developerId": vm.userId};
+                var website = {"name": name, "description": websiteDescription};
                 WebsiteService
                     .createWebsite(vm.userId, website)
                     .then(
