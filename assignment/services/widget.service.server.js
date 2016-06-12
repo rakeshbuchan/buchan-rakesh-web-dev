@@ -98,12 +98,20 @@ module.exports = function(app, models) {
         var websiteId     = req.body.websiteId;
         var pageId        = req.body.pageId;
 
-        for(var i in widgets) {
-            if(widgets[i]._id === widgetId) {
-                widgets[i].url = "/uploads/"+filename;
-            }
+        var widget  = {
+            url: "/uploads/" + filename,
+            width: width
         }
-        res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+        widgetModel
+            .updateWidget(widgetId, widget)
+            .then(
+                function (stats) {
+                    res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+                },
+                function (error) {
+                    res.statusCode(404).send(error);
+                }
+            );       
         
     }
 }
