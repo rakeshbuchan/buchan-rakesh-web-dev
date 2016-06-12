@@ -5,15 +5,32 @@
     </div>
 
     <h1>Login</h1>
-    <input ng-model= "username"
+    <form name="loginForm" novalidate>
+        <input ng-model= "username"
            type="text"
            class="form-control"
+           required
+           name="username"
            placeholder="username"/>
-    <input ng-model= "password"
+        <span ng-show="loginForm.$submitted && loginForm.username.$invalid">
+            Username is required
+        </span>
+
+        <input ng-model= "password"
            type="password"
            class="form-control"
-           placeholder="password"/>
-    <a ng-click ="model.login(username,password)" class="btn btn-primary btn-block">Login</a>
-    <a class="btn btn-success btn-block"
-       href="#/register">Register</a>
+           placeholder="password"
+           required
+           name="password"/>
+        <span ng-show="loginForm.$submitted && loginForm.password.$invalid">
+            Password is required
+        </span>
+
+        <button class="btn btn-primary btn-block"
+                ng-click="model.login(username,password)">
+                Login
+        </button>
+        <a class="btn btn-success btn-block"
+            href="#/register">Register</a>
+    </form>
 </div>
