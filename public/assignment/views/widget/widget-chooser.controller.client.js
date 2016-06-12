@@ -28,14 +28,13 @@
 
         function createHeader(){
             var newWidget = {
-                _id: (new Date()).getTime()+"",
-                pageId: vm.pageId,
-                widgetType: "HEADER"
+                type: "HEADING"
             };
             WidgetService
                 .createWidget(vm.pageId,newWidget)
                 .then(
                     function(response){
+                        newWidget = response.data;
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
                     },
                     function(error){
@@ -46,14 +45,13 @@
 
         function createImage(){
             var newWidget = {
-                _id: (new Date()).getTime()+"",
-                pageId: vm.pageId,
-                widgetType: "IMAGE"
+                type: "IMAGE"
             };
             WidgetService
                 .createWidget(vm.pageId,newWidget)
                 .then(
                     function(response){
+                        newWidget = response.data;
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
                     },
                     function(error){
@@ -64,14 +62,13 @@
 
         function createYoutube(){
             var newWidget = {
-                _id: (new Date()).getTime()+"",
-                pageId: vm.pageId,
-                widgetType: "YOUTUBE"
+                type: "YOUTUBE"
             };
             WidgetService
                 .createWidget(vm.pageId,newWidget)
                 .then(
                     function(response){
+                        newWidget = response.data;
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
                     },
                     function(error){

@@ -34,17 +34,15 @@
             url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
             var newWidget = {
                 _id: vm.widgetId,
-                pageId: vm.pageId,
                 widgetType: "IMAGE",
                 url: url,
-                websiteId: vm.websiteId,
-                width: "100%"
             };
             WidgetService
                 .updateWidget(vm.widgetId,newWidget)
                 .then(
                     function(response){
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                        newWidget = response.body;
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/"+ vm.widgetId);
                     },
                     function(error){
                         vm.error = error.data;
