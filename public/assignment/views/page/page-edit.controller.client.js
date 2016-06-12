@@ -37,7 +37,7 @@
                         }
                     )
             }else{
-                vm.error = "Provide Page Name";
+                vm.error = "Page Name Required";
             }
         }        
 
