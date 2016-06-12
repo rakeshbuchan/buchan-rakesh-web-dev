@@ -24,7 +24,7 @@
                         }
                     )
             }else{
-                vm.error = "Provide Website Name";
+                vm.error = "Website Name Required";
             }
         }
         
