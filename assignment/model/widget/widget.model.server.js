@@ -10,7 +10,7 @@ module.exports = function() {
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
-        reorderWidget: reorderWidget
+        reorderWidget: reorderWidget,
     };
     return api;
 
@@ -41,6 +41,35 @@ module.exports = function() {
     }
 
     function reorderWidget(pageId, start, end) {
-
+        return Widget
+            .find()
+            .then(
+                function(widgets) {
+                    widgets
+                        .forEach(
+                            function(widget){
+                                if(start < end) {
+                                    if (widget.order === start) {
+                                        widget.order = end;
+                                        widget.save(function (err, doc) {
+                                        });
+                                    } else if (widget.order > start && widget.order <= end) {
+                                        widget.order--;
+                                        widget.save(function (err, doc) {
+                                        });
+                                    }
+                                }else {
+                                    if(widget.order === start) {
+                                        widget.order = end;
+                                        widget.save(function(err,doc){});
+                                    } else if(widget.order < start && widget.order >= end) {
+                                        widget.order++;
+                                        widget.save(function(err,doc){});
+                                    }
+                                }
+                            }
+                        );
+                }
+            )
     }
 };

@@ -11,6 +11,7 @@ module.exports = function(app, models) {
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
     app.post ("/api/uploads", upload.single('myFile'), uploadImage);
+    app.put("/page/:pageId/widget",sortWidget);
 
     function createWidget(req, res) {
         var pageId = req.params.pageId;
@@ -113,5 +114,24 @@ module.exports = function(app, models) {
                 }
             );       
         
+    }
+
+    function sortWidget(req, res) {
+        var pageId = req.params.pageId;
+        var start = req.query.start;
+        var end = req.query.end;
+
+        if (start && end) {
+            widgetModel
+                .reorderWidget(pageId, start, end)
+                .then(
+                    function (stat) {
+                        res.send(200);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
+        }
     }
 }
