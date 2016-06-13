@@ -15,6 +15,7 @@
         vm.createImage = createImage;
         vm.createYoutube = createYoutube;
         vm.createHTML = createHTML;
+        vm.createText = createText;
 
         function getSafeHtml(widget) {
             return $sce.trustAsHtml(widget.text);
@@ -47,6 +48,23 @@
         function createHTML(){
             var newWidget = {
                 type: "HTML"
+            };
+            WidgetService
+                .createWidget(vm.pageId,newWidget)
+                .then(
+                    function(response){
+                        newWidget = response.data;
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+                    },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                )
+        }
+
+        function createText(){
+            var newWidget = {
+                type: "INPUT"
             };
             WidgetService
                 .createWidget(vm.pageId,newWidget)
