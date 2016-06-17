@@ -19,8 +19,6 @@
                 .then(
                     function(response){
                         vm.widgets = response.data;
-                        $(".container")
-                            .sortable({axis: "y"});
                     }
                 )
         }
@@ -42,7 +40,6 @@
                 .sortWidget(vm.pageId, start, end)
                 .then(
                     function(response){
-                        //init();
                     },
                     function(error){
                         vm.error = error;
