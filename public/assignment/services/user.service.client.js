@@ -11,9 +11,21 @@
             findUserByCredentials : findUserByCredentials,
             updateUser : updateUser,
             deleteUser: deleteUser,
-            login: login
+            login: login,
+            logout: logout,
+            checkLoggedIn: checkLoggedIn
         }
         return api;
+
+        function checkLoggedIn() {
+            var url = "/api/loggedIn";
+            return $http.get(url);
+        }
+
+        function logout() {
+            var url = "/api/logout";
+            return $http.post(url);
+        }
 
         function login(username, password){
             var user = {"username": username, "password": password};
