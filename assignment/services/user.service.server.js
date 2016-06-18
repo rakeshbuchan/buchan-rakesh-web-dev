@@ -1,27 +1,58 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 module.exports = function(app, models) {
 
     var userModel = models.userModel;
 
     app.post("/api/user", createUser);
-    app.post("/api/login", login);
+    app.post("/api/login", passport.authenticate('local'), login);
     app.get("/api/user", getUsers);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
 
-    function login(req, res) {
-        var username = req.body.username;
-        var password = req.body.password;
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    function localStrategy(username, password, done) {
         userModel
             .findUserByCredentials(username, password)
             .then(
-                function (user) {
-                    res.json(user);
+                function(user) {
+                    if(user){
+                        done(null, user);
+                    } else {
+                        done(null, false);
+                    }
                 },
-                function (err) {
-                    res.statusCode(404).send(err);
+                function(err) {
+                    done(err);
                 }
-            )
+            );
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            );
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
     }
 
     function createUser(req, res) {
