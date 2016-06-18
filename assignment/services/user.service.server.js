@@ -6,6 +6,7 @@ module.exports = function(app, models) {
     var userModel = models.userModel;
 
     app.post("/api/user", createUser);
+    app.post("/api/register", register);
     app.post("/api/login", passport.authenticate('local'), login);
     app.post("/api/logout", logout);
     app.get ('/api/loggedIn', loggedIn);
@@ -68,6 +69,44 @@ module.exports = function(app, models) {
         } else {
             res.send('0');
         }
+    }
+
+    function register(req, res){
+        var username = req.body.username;
+        var password = req.body.password;
+        userModel
+            .findUserByUsername(username)
+            .then(
+                function (user) {
+                    if (user) {
+                        res.status(400).send("Username already exists");
+                        return;
+                    }
+                    else {
+                        return userModel
+                            .createUser(req.body);
+                    }
+                },
+                function(error){
+                    res.status(400).send(error);
+                }
+            )
+            .then(
+                function(user) {
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function(error) {
+                    res.status(400).send(error);
+                }
+            )
     }
 
     function createUser(req, res) {

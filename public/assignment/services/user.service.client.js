@@ -13,7 +13,8 @@
             deleteUser: deleteUser,
             login: login,
             logout: logout,
-            checkLoggedIn: checkLoggedIn
+            checkLoggedIn: checkLoggedIn,
+            register: register
         }
         return api;
 
@@ -30,6 +31,11 @@
         function login(username, password){
             var user = {"username": username, "password": password};
             var url = "/api/login";
+            return $http.post(url, user);
+        }
+
+        function register(user) {
+            var url = "/api/register";
             return $http.post(url, user);
         }
 

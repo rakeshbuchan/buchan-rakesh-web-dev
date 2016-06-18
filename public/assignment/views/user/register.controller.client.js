@@ -13,7 +13,7 @@
                 if(password == passwordVerify){
                     var user = {"username": username, "password": password};
                     UserService
-                        .createUser(user)
+                        .register(user)
                         .then(
                             function(response){
                                 var user = response.data;
@@ -22,6 +22,9 @@
                                 } else {
                                     vm.error = "Unable to Register. Try a different Username";
                                 }
+                            },
+                            function(error){
+                                vm.error = error.data;
                             }
                         )
                 }
