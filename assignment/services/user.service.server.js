@@ -3,10 +3,26 @@ module.exports = function(app, models) {
     var userModel = models.userModel;
 
     app.post("/api/user", createUser);
+    app.post("/api/login", login);
     app.get("/api/user", getUsers);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
+
+    function login(req, res) {
+        var username = req.body.username;
+        var password = req.body.password;
+        userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (err) {
+                    res.statusCode(404).send(err);
+                }
+            )
+    }
 
     function createUser(req, res) {
         var newUser = req.body;
@@ -56,13 +72,13 @@ module.exports = function(app, models) {
         var username = req.query["username"];
         var password = req.query["password"];
         if (username && password) {
-            findUserByCredentials(username, password, res);
+            findUserByCredentials(username, password, req, res);
         } else if (username) {
             findUserByUsername(username, res);
         }
     }
 
-    function findUserByCredentials(username, password, res) {
+    function findUserByCredentials(username, password, req, res) {
         userModel
             .findUserByCredentials(username, password)
             .then(

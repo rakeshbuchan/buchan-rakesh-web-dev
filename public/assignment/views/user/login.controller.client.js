@@ -11,7 +11,7 @@
         function login(username, password){
             if(username != null && password != null){
                 UserService
-                    .findUserByCredentials(username, password)
+                    .login(username, password)
                     .then(
                         function(response) {
                             var user = response.data;
