@@ -38,16 +38,21 @@
             }
 
         function updateWidget(newWidget){
-            WidgetService
-                .updateWidget(vm.widgetId,newWidget)
-                .then(
-                    function(response){
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");  
-                    },
-                    function(error){
-                        vm.error = error.data;
-                    }
-                 )
+            if(newWidget.name != null && newWidget.name != ""){
+                WidgetService
+                    .updateWidget(vm.widgetId,newWidget)
+                    .then(
+                        function(response){
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                        },
+                        function(error){
+                            vm.error = error.data;
+                        }
+                    )
+            } else{
+                vm.error = "Widget Name Required";
+            }
+            
         }
     }
 })();
